@@ -10,3 +10,5 @@ extern volatile bool bypassed;
 
 bool saferDigitalRead(byte pin);
 int saferAnalogRead(byte pin);
+
+typedef void (*StageFn)(unsigned long);

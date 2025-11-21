@@ -3,6 +3,7 @@
 #include "lights.h"
 #include "sounds.h"
 #include "pins.h"
+#include "base.h"
 
 struct TimedEffect {
   bool active;
@@ -36,6 +37,9 @@ void updateTimedEffects(const unsigned long now) {
         case EFFECT_SOUND:
           playSound(effects[i].optCode, effects[i].id);
           break;
+        case EFFECT_STAGE:
+          stage++;
+          break;
       }
       effects[i].active = false;
     }
@@ -56,10 +60,18 @@ void startTimedRelay(const byte id, const bool on, const unsigned long time) {
   startTimedEvent(id, on, time, EFFECT_RELAY);
 }
 
+void startTimedMagnet(const byte id, const bool on, const unsigned long time) {
+  startTimedRelay(id, !on, time);
+}
+
 void startTimedLight(const byte id, const bool on, const unsigned long time) {
   startTimedEvent(id, on, time, EFFECT_LIGHT);
 }
 
 void startTimedSound(const byte id, const byte optCode, const unsigned long time) {
   startTimedEvent(id, optCode, time, EFFECT_SOUND);
+}
+
+void startTimedStage(const unsigned long time) {
+  startTimedEvent(0, 0, time, EFFECT_STAGE);
 }

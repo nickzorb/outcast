@@ -1,3 +1,5 @@
 #include <Arduino.h>
 
-void triggerJumpScareManual(const unsigned long now);
+extern byte stageJumpIndex[MAX_STAGES];
+
+void performJumpScare(const unsigned long now);

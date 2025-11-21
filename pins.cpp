@@ -31,6 +31,10 @@ void setMcpPin(byte logicalPin, bool high) {
   relayControls[chip].digitalWrite(pin, high ? HIGH : LOW);
 }
 
-void setRelay(byte logicalPin, bool on) {
-  setMcpPin(logicalPin, !on);
+void setRelay(byte id, bool on) {
+  setMcpPin(id, !on);
+}
+
+void setMagnet(byte id, bool on) {
+  setRelay(id, !on);
 }

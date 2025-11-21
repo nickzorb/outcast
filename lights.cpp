@@ -10,7 +10,8 @@ const byte LIGHT_SOURCES[] = {
   LED_CORRIDOR_C,
   LED_ELEVATOR_SPOT,
   LED_ELEVATOR_LED,
-  LED_CORRIDOR_LED,
+  LED_CORRIDOR_RED,
+  LED_CORRIDOR_WH,
   LED_BED_MAIN,
   LED_ULTRA_SPOT_A,
   LED_ULTRA_SPOT_B,
@@ -26,16 +27,18 @@ const byte LIGHT_SOURCES[] = {
   LED_ULTRA_LED_F,
   LED_FRIDGE,
   LED_WC,
-  LED_OVEN,
   LED_OFFICE,
-  LED_SECLUSION,
+  LED_FANS,
   LED_CELL_1,
   LED_CELL_2,
   LED_TUNNEL,
   LED_MONEY_LAMP,
-  LED_CLOCK,
   LED_FINALE,
   LED_SIREN,
+  LED_PAD_CORRIDOR,
+  LED_PAD_BED,
+  LED_CLOCK,
+  LED_OVEN,
   LED_ELEVATOR_A,
   LED_ELEVATOR_B,
   LED_ELEVATOR_C,
@@ -48,11 +51,11 @@ const byte LIGHT_SOURCES[] = {
 };
 
 const byte LIGHT_REVERSED[] = {
-  1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 0, 1, 0, 1,
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
-  0, 1
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 1
 };
 
 const byte LIGHT_COUNT = sizeof(LIGHT_SOURCES) / sizeof(LIGHT_SOURCES[0]);
@@ -98,6 +101,7 @@ void setLight(byte id, bool on) {
 void applyAllLightsFromState() {
   for (byte i = 0; i < LIGHT_COUNT; i++) {
     applyLightState(i, lightStates[i]);
+    delay(1);
   }
 }
 

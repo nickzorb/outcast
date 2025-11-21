@@ -1,6 +1,9 @@
 #pragma once
 #include "base.h"
 
+void updateNoop(unsigned long);
+void updateStart(const unsigned long now);
+void updateOfficeLaptop(const unsigned long now);
 void updateOfficePad(const unsigned long now);
 void updateGasSliders(const unsigned long now);
 void updateElevatorPad(const unsigned long now);
@@ -13,8 +16,12 @@ void updateOvenKnobs(const unsigned long now);
 void updateControlBarcode(const unsigned long now);
 void updateBloodBars(const unsigned long now);
 void updateIsoClock(const unsigned long now);
+void updatePC(const unsigned long now);
 void updatePanelCellCables(const unsigned long now);
 void updatePanelCafeFuses(const unsigned long now);
 void updatePanelWcFuses(const unsigned long now);
 void updatePanelBatteries(const unsigned long now);
 void updateFinalUsb(const unsigned long now);
+
+extern const StageFn stageHandlers[];
+extern const byte maxStage;
