@@ -181,13 +181,13 @@ const byte ultraSpots[] = {
   LED_ULTRA_SPOT_F
 };
 const byte elevatorLeds[] = {
-  LED_ELEVATOR_A,
   LED_ELEVATOR_B,
-  LED_ELEVATOR_C,
+  LED_ELEVATOR_A,
   LED_ELEVATOR_D,
-  LED_ELEVATOR_E,
   LED_ELEVATOR_F,
-  LED_ELEVATOR_G  
+  LED_ELEVATOR_G,
+  LED_ELEVATOR_C,
+  LED_ELEVATOR_E
 };
 void solvedElevatorPad(const unsigned long now) {
   stage++;
@@ -201,15 +201,15 @@ void solvedElevatorPad(const unsigned long now) {
   setLight(POW_ULTRASOUND_B, ON);
 }
 
-const byte elevatorCode[] = {2, 2, 4, 3, 3, 4, 0, 0, 4, 1, 1, 4, 4, 4};
+const byte elevatorCode[] = {2, 2, 3, 3, 0, 0, 1, 1, 4, 4};
 const byte elevatorDigits[][7] = {
   {0, 1, 1, 0, 0, 0, 0},
   {1, 1, 0, 1, 1, 0, 1},
   {1, 1, 1, 1, 0, 0, 1},
-  {1, 1, 0, 0, 1, 0, 1},
+  {1, 1, 1, 1, 1, 1, 0},
   {0, 0, 0, 0, 0, 0, 0}
 };
-byte curDigit = 13;
+byte curDigit = 10;
 unsigned long elevatorPadLast = 0;
 void updateElevatorPad(const unsigned long now) {
   if (bypassed) {
@@ -217,11 +217,12 @@ void updateElevatorPad(const unsigned long now) {
     bypassed = false;
     return;
   }
-  if (now - elevatorPadLast > 1 * 1000) {
-    curDigit = (curDigit + 1) % 14;
+  if (now - elevatorPadLast > 1 * 750) {
+    curDigit = (curDigit + 1) % 10;
     for (byte i = 0; i < 7; i++) {
       setLight(elevatorLeds[i], elevatorDigits[elevatorCode[curDigit]][i]);
     }
+    elevatorPadLast = now;
   }
   if (!saferDigitalRead(BED_PAD)) {
     solvedElevatorPad(now);
